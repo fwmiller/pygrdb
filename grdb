@@ -1,11 +1,12 @@
 #!/usr/bin/python3 -B
 
+import os
 import sys
 from config import *
-from graph import *
-from component import *
+from graph import graph_command
+from component import component_command
 
-print('Database directory: ', GRDB_DIR)
+print('Database directory:', os.path.expanduser(GRDB_DIR))
 
 while True:
 	line = input(PROMPT)
@@ -18,12 +19,9 @@ while True:
 		sys.exit(0)
 
 	if argv[0] == 'graph' or argv[0] == 'g':
-		graphs_print()
+		graph_command(argv)
 		continue
 
 	if argv[0] == 'component' or argv[0] == 'c':
-		components_print()
+		component_command(argv)
 		continue
-
-	print(len(argv))
-	print(argv)
