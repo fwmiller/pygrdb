@@ -1,0 +1,6 @@
+PROMPT = 'grdb> '
+GRDB_DIR = '~/.grdb'
+VERTEX_SCHEMA_FILE = 'sv'
+VERTEX_FILE = 'v'
+EDGE_SCHEMA_FILE = 'se'
+EDGE_FILE = 'e'
