@@ -27,7 +27,7 @@ def graph_new():
 	# Find highest existing graph number and add one
 	glist = graphs_get_list()
 	gnolist = list(map(int, glist))
-	gno = max(gnolist) + 1
+	gno = max(gnolist or (-1)) + 1
 
 	# Create directory for new graph
 	rdir = os.path.expanduser(GRDB_DIR)

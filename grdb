@@ -3,13 +3,26 @@
 import os
 import sys
 from config import *
-from graph import graph_command
-from component import component_command
+from graph import *
+from component import *
 
 print('Database directory:', os.path.expanduser(GRDB_DIR))
 
+# Determine current graph and component number
+glist = graphs_get_list()
+gnolist = list(map(int, glist))
+gno = min(gnolist or (-1))
+
+clist = components_get_list(gno)
+cnolist = list(map(int, clist))
+cno = min(cnolist or (-1))
+
 while True:
-	line = input(PROMPT)
+	if gno < 0 or cno < 0:
+		line = input(PROMPT)
+	else:
+		line = input(str(gno) + '.' + str(cno) + '> ')
+
 	argv = line.split()
 
 	if len(argv) == 0:
