@@ -36,5 +36,5 @@ while True:
 		continue
 
 	if argv[0] == 'component' or argv[0] == 'c':
-		component_command(argv)
+		component_command(argv, gno)
 		continue
