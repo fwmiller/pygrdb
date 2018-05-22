@@ -31,10 +31,13 @@ while True:
 	if argv[0] == 'quit':
 		sys.exit(0)
 
+	if argv[0] == 'clear':
+		continue;
+
 	if argv[0] == 'graph' or argv[0] == 'g':
 		graph_command(argv)
 		continue
 
 	if argv[0] == 'component' or argv[0] == 'c':
-		component_command(argv, gno)
+		gno, cno = component_command(argv, gno, cno)
 		continue

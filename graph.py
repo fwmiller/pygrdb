@@ -19,9 +19,15 @@ def graphs_get_list():
 	return glist
 
 def graphs_print():
-	glist = graphs_get_list()
-	for g in sorted(glist):
-		print(g)
+	clist = []
+	rdir = os.path.expanduser(GRDB_DIR)
+	gdirs = os.listdir(rdir)
+	for gdir in gdirs:
+		cdirs = os.listdir(rdir + '/' + gdir)
+		for cdir in cdirs:
+			clist.append(''.join(gdir + '.' + cdir))
+	for c in sorted(clist):
+		print(c)
 
 def graph_new():
 	# Find highest existing graph number and add one
