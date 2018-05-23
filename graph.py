@@ -22,9 +22,11 @@ def graphs_print():
 
 def graph_new():
 	# Find highest existing graph number and add one
+	gno = 0
 	glist = graphs_get_list()
-	gnolist = list(map(int, glist))
-	gno = max(gnolist or (-1)) + 1
+	if glist:
+		gnolist = list(map(int, glist))
+		gno = max(gnolist) + 1
 
 	# Create directory for new graph
 	rdir = os.path.expanduser(GRDB_DIR)
@@ -34,3 +36,5 @@ def graph_new():
 	os.mkdir(rdir + '/' + str(gno) + '/0')
 
 	# Create first vertex in the new component
+
+	return gno, 0

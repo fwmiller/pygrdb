@@ -8,14 +8,15 @@ from graph import *
 from schema import *
 
 
-def graph_command(argv):
+def graph_command(argv, gno, cno):
 	if len(argv) > 1:
 		if argv[1] == 'new' or argv[1] == 'n':
-			graph_new()
-		return
+			gidx, cidx = graph_new()
+		return gidx, cidx
 
 	# Dump all graphs if no arguments
 	graphs_print()
+	return gno, cno
 
 
 def component_command(argv, gno, cno):
@@ -43,38 +44,57 @@ def component_command(argv, gno, cno):
 	return gno, cno
 
 
+def schema_command_add(argv, gno, cno):
+	if len(argv) != 5:
+		print('Illegal number of arguments for schema add')
+		return
+
+	if argv[2] != 'vertex' and argv[2] != 'edge':
+		print('Illegal schema type for schema add')
+		return
+
+	# Read existing schema
+	schema = schema_read(gno, cno, argv[2])
+
+	# Add new attribute to schema
+
+	# Write new schema
+
+	return
+
 def schema_command(argv, gno, cno):
 	if len(argv) > 1:
 		if argv[1] == 'add' or argv[1] == 'a':
-			if len(argv) == 4:
-				# Read existing schema
+			if gno < 0 or cno < 0:
+				print('Component does not exist')
+				return;
 
-				# Add new attribute to schema
-				schema_add()
-
-				# Write new schema
-
-				return
-
-			print('Illegal schema add')
+			schema_command_add(argv, gno, cno)
 			return
 
-	schema_print(gno, cno)
+	if gno >= 0 and cno >= 0:
+		schema_print(gno, cno, 'vertex')
+		schema_print(gno, cno, 'edge')
 
 
 print('Database directory:', os.path.expanduser(GRDB_DIR))
 
 # Determine current graph and component number
+gno = (-1)
+cno = (-1)
+
 glist = graphs_get_list()
 gnolist = list(map(int, glist))
-gno = min(gnolist or (-1))
+if gnolist:
+	gno = min(gnolist)
 
-clist = components_get_list(gno)
-cnolist = list(map(int, clist))
-cno = min(cnolist or (-1))
+if gno >= 0:
+	clist = components_get_list(gno)
+	cnolist = list(map(int, clist))
+	if cnolist:
+		cno = min(cnolist or (-1))
 
-print('Current component:', str(gno) + '.' + str(cno))
-
+# Main command line loop
 while True:
 	if gno < 0 or cno < 0:
 		line = input(PROMPT)
@@ -93,7 +113,7 @@ while True:
 		continue;
 
 	if argv[0] == 'graph' or argv[0] == 'g':
-		graph_command(argv)
+		gno, cno = graph_command(argv, gno, cno)
 		continue
 
 	if argv[0] == 'component' or argv[0] == 'c':
