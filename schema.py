@@ -2,7 +2,7 @@ import json
 import os
 from config import *
 
-def schema_gen_filename(gno, cno, schema_type):
+def schema_filename(gno, cno, schema_type):
 	fname = os.path.expanduser(GRDB_DIR)
 	fname += '/' + str(gno)
 	fname += '/' + str(cno)
@@ -15,7 +15,7 @@ def schema_gen_filename(gno, cno, schema_type):
 	return fname
 
 def schema_read(gno, cno, schema_type):
-	schemafilename = schema_gen_filename(gno, cno, schema_type)
+	schemafilename = schema_filename(gno, cno, schema_type)
 	if not schemafilename:
 		return None
 	try:
@@ -29,7 +29,7 @@ def schema_read(gno, cno, schema_type):
 
 
 def schema_write(schema, gno, cno, schema_type):
-	schemafilename = schema_gen_filename(gno, cno, schema_type)
+	schemafilename = schema_filename(gno, cno, schema_type)
 	if not schemafilename:
 		return
 
@@ -42,6 +42,12 @@ def schema_write(schema, gno, cno, schema_type):
 
 def schema_print(gno, cno, schema_type):
 	schema = schema_read(gno, cno, schema_type)
+
+	if schema_type == 'vertex' or schema_type == 'v':
+		print('sv: ', end='')
+	elif schema_type == 'edge' or schema_type == 'e':
+		print('se: ', end='')
+
 	print(schema)
 
 

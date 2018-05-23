@@ -76,8 +76,8 @@ def schema_command(argv, gno, cno):
 			return
 
 	if gno >= 0 and cno >= 0:
-		schema_print(gno, cno, 'vertex')
-		schema_print(gno, cno, 'edge')
+		schema_print(gno, cno, 'v')
+		schema_print(gno, cno, 'e')
 
 
 print('Database directory:', os.path.expanduser(GRDB_DIR))
