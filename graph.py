@@ -1,15 +1,6 @@
 import os
 from config import GRDB_DIR
 
-def graph_command(argv):
-	if len(argv) > 1:
-		if argv[1] == 'new' or argv[1] == 'n':
-			graph_new()
-		return
-
-	# Dump all graphs if no arguments
-	graphs_print()
-	
 def graphs_get_list():
 	glist = []
 	rdir = os.path.expanduser(GRDB_DIR)
@@ -41,3 +32,5 @@ def graph_new():
 
 	# Create first component directory for new graph
 	os.mkdir(rdir + '/' + str(gno) + '/0')
+
+	# Create first vertex in the new component
