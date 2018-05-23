@@ -12,7 +12,8 @@ def graph_command(argv, gno, cno):
 	if len(argv) > 1:
 		if argv[1] == 'new' or argv[1] == 'n':
 			gidx, cidx = graph_new()
-		return gidx, cidx
+			return gidx, cidx
+		return gno, cno
 
 	# Dump all graphs if no arguments
 	graphs_print()
@@ -49,7 +50,8 @@ def schema_command_add(argv, gno, cno):
 		print('Illegal number of arguments for schema add')
 		return
 
-	if argv[2] != 'vertex' and argv[2] != 'edge':
+	if argv[2] != 'vertex' and argv[2] != 'v' and \
+	   argv[2] != 'edge'   and argv[2] != 'e':
 		print('Illegal schema type for schema add')
 		return
 
@@ -57,10 +59,11 @@ def schema_command_add(argv, gno, cno):
 	schema = schema_read(gno, cno, argv[2])
 
 	# Add new attribute to schema
+	schema = schema_add(schema, argv[3], argv[4])
 
 	# Write new schema
+	schema_write(schema, gno, cno, argv[2])
 
-	return
 
 def schema_command(argv, gno, cno):
 	if len(argv) > 1:
