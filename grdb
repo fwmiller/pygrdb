@@ -62,7 +62,7 @@ def schema_command_add(argv, gno, cno):
 	schema = schema_add(schema, argv[3], argv[4])
 
 	# Write new schema
-	schema_write(schema, gno, cno, argv[2])
+	schema_write(gno, cno, argv[2], schema)
 
 
 def schema_command(argv, gno, cno):

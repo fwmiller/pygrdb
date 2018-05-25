@@ -1,3 +1,4 @@
+import collections
 import json
 import os
 from config import *
@@ -28,7 +29,7 @@ def schema_read(gno, cno, schema_type):
 	return schema
 
 
-def schema_write(schema, gno, cno, schema_type):
+def schema_write(gno, cno, schema_type, schema):
 	schemafilename = schema_filename(gno, cno, schema_type)
 	if not schemafilename:
 		return
@@ -48,15 +49,24 @@ def schema_print(gno, cno, schema_type):
 	elif schema_type == 'edge' or schema_type == 'e':
 		print('se: ', end='')
 
-	print(schema)
+	if schema:
+		print('[', end='')
+		n = len(schema)
+		for i, (k,v) in enumerate(schema):
+			print(k + ':' + v, end='')
+			if i < n - 1:
+				print(',', end='')
+		print(']')
+	else:
+		print('None')
 
 
 def schema_new():
-	return {}
+	return []
 
 
 def schema_add(schema, name, base_type):
 	if not schema:
-		schema = {}
-	schema[name] = base_type
+		schema = []
+	schema.append((name,base_type))
 	return schema
