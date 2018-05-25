@@ -3,6 +3,7 @@ import json
 import os
 from config import *
 
+
 def schema_filename(gno, cno, schema_type):
 	fname = os.path.expanduser(GRDB_DIR)
 	fname += '/' + str(gno)
@@ -14,6 +15,7 @@ def schema_filename(gno, cno, schema_type):
 	else:
 		return None
 	return fname
+
 
 def schema_read(gno, cno, schema_type):
 	schemafilename = schema_filename(gno, cno, schema_type)
@@ -65,8 +67,30 @@ def schema_new():
 	return []
 
 
-def schema_add(schema, name, base_type):
+def schema_check_base_type(base_type):
+	if base_type.lower() == 'int':
+		return True
+	elif base_type.lower() == 'float':
+		return True
+	elif base_type.lower() == 'double':
+		return True
+	elif base_type.lower() == 'char':
+		return True
+	elif base_type.lower() == 'string':
+		return True
+	elif base_type.lower() == 'date':
+		return True
+	elif base_type.lower() == 'time':
+		return True
+	return False
+
+
+def schema_add(schema, base_type, name):
+	if not schema_check_base_type(base_type):
+		print('Illegal base type')
+		return schema
+
 	if not schema:
 		schema = []
-	schema.append((name,base_type))
+	schema.append((base_type,name))
 	return schema
