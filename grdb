@@ -5,83 +5,10 @@ import shutil
 import sys
 from config import *
 from component import *
+from component_command import component_command
 from graph import *
-from schema import *
-
-
-def graph_command(argv, gno, cno):
-	if len(argv) > 1:
-		if argv[1] == 'new' or argv[1] == 'n':
-			gidx, cidx = graph_new()
-		if gno < 0 or cno < 0:
-			return gidx, cidx
-		else:
-			return gno, cno
-
-	# Dump all graphs if no arguments
-	graphs_print()
-	return gno, cno
-
-
-def component_command(argv, gno, cno):
-	if len(argv) > 1:
-		if argv[1] == 'new' or argv[1] == 'n':
-			component_new(gno)
-			return gno, cno
-
-		if re.match(r'\d+\.\d+', argv[1]):
-			# Check whether component exists
-			gidx, cidx = argv[1].split('.')
-			rdir = os.path.expanduser(GRDB_DIR)
-			gdir = rdir + '/' + str(gidx)
-			if os.path.isdir(gdir):
-				cdir = gdir + '/' + str(cidx)
-				if os.path.isdir(cdir):
-					return int(gidx), int(cidx)
-
-			printf('Component', argv[1], 'does not exist')
-
-		return gno, cno
-
-	# Dump all components if no arguments
-	components_print(gno)
-	return gno, cno
-
-
-def schema_command_add(argv, gno, cno):
-	if len(argv) != 5:
-		print('Illegal number of arguments for schema add')
-		return
-
-	if argv[2] != 'vertex' and argv[2] != 'v' and \
-	   argv[2] != 'edge'   and argv[2] != 'e':
-		print('Illegal schema type for schema add')
-		return
-
-	# Read existing schema
-	schema = schema_read(gno, cno, argv[2])
-
-	# Add new attribute to schema
-	schema = schema_add(schema, argv[3], argv[4])
-
-	# Write new schema
-	schema_write(gno, cno, argv[2], schema)
-
-
-def schema_command(argv, gno, cno):
-	if len(argv) > 1:
-		if argv[1] == 'add' or argv[1] == 'a':
-			if gno < 0 or cno < 0:
-				print('Component does not exist')
-				return;
-
-			schema_command_add(argv, gno, cno)
-			return
-
-	if gno >= 0 and cno >= 0:
-		schema_print(gno, cno, 'v')
-		schema_print(gno, cno, 'e')
-
+from graph_command import graph_command
+from schema_command import schema_command
 
 print('Database directory:', os.path.expanduser(GRDB_DIR))
 

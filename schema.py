@@ -1,4 +1,3 @@
-import collections
 import json
 import os
 from config import *
