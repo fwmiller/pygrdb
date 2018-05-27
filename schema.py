@@ -25,7 +25,6 @@ def schema_read(gno, cno, schema_type):
 		f = open(schemafilename)
 	except:
 		return None
-
 	schema = json.loads(f.read())
 	f.close()
 	return schema
@@ -35,9 +34,6 @@ def schema_write(gno, cno, schema_type, schema):
 	schemafilename = schema_filename(gno, cno, schema_type)
 	if not schemafilename:
 		return
-
-	print('Write schema', schema)
-
 	f = open(schemafilename, 'w+')
 	json.dump(schema, f)
 	f.close()
@@ -45,12 +41,10 @@ def schema_write(gno, cno, schema_type, schema):
 
 def schema_print(gno, cno, schema_type):
 	schema = schema_read(gno, cno, schema_type)
-
 	if schema_type == 'vertex' or schema_type == 'v':
 		print('sv: ', end='')
 	elif schema_type == 'edge' or schema_type == 'e':
 		print('se: ', end='')
-
 	if schema:
 		print('[', end='')
 		n = len(schema)
@@ -68,19 +62,14 @@ def schema_new():
 
 
 def schema_check_base_type(base_type):
-	if base_type.lower() == 'int':
-		return True
-	elif base_type.lower() == 'float':
-		return True
-	elif base_type.lower() == 'double':
-		return True
-	elif base_type.lower() == 'char':
-		return True
-	elif base_type.lower() == 'string':
-		return True
-	elif base_type.lower() == 'date':
-		return True
-	elif base_type.lower() == 'time':
+	base_type_lower = base_type.lower()
+	if base_type_lower == 'int' or \
+	   base_type_lower == 'float' or \
+	   base_type_lower == 'double' or \
+	   base_type_lower == 'char' or \
+	   base_type_lower == 'string' or \
+	   base_type_lower == 'date' or \
+	   base_type_lower == 'time':
 		return True
 	return False
 
@@ -92,5 +81,5 @@ def schema_add(schema, base_type, name):
 
 	if not schema:
 		schema = []
-	schema.append((base_type,name))
+	schema.append((base_type.lower(),name))
 	return schema
