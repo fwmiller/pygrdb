@@ -6,7 +6,7 @@ import sys
 from config import *
 from component import *
 from component_command import component_command
-from graph import *
+from graph import graphs_get_list
 from graph_command import graph_command
 from schema_command import schema_command
 
