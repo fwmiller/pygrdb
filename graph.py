@@ -1,6 +1,7 @@
 import os
 import sys
 from config import *
+from vertex import *
 
 def graphs_get_list():
 	glist = []
@@ -101,15 +102,7 @@ def graph_new():
 	os.mkdir(cdir)
 
 	# Create first vertex in the new component
-	vfile = cdir + '/' + VERTEX_FILE
-	try:
-		vfd = open(vfile, 'wb+')
-	except:
-		print('Write to file', vfile, 'failed')
+	if not vertex_new(cdir):
 		return (-1), (-1)
-
-	bytes = (1).to_bytes(8, byteorder='little', signed=False)
-	vfd.write(bytes)
-	vfd.close()
 
 	return gidx, 0

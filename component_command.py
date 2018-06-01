@@ -17,7 +17,7 @@ def component_command(argv, gno, cno):
 				if os.path.isdir(cdir):
 					return int(gidx), int(cidx)
 
-			printf('Component', argv[1], 'does not exist')
+			print('Component', argv[1], 'does not exist')
 
 		return gno, cno
 

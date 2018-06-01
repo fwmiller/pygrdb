@@ -1,6 +1,7 @@
 import os
 import re
 from config import GRDB_DIR
+from vertex import *
 
 def components_get_list(gno):
 	clist = []
@@ -11,6 +12,8 @@ def components_get_list(gno):
 	return clist
 
 def components_print(gno):
+	if gno < 0:
+		return
 	clist = components_get_list(gno)
 	for c in sorted(clist):
 		print(str(gno) + '.' + c)
@@ -24,6 +27,8 @@ def component_new(gno):
 
 	# Create directory for new component
 	gdir = os.path.expanduser(GRDB_DIR) + '/' + str(gno)
-	os.mkdir(gdir + '/' + str(cno))
+	cdir = gdir + '/' + str(cno)
+	os.mkdir(cdir)
 
 	# Create first vertex in the new component
+	vertex_new(cdir)
