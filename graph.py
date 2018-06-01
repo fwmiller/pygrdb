@@ -28,7 +28,7 @@ def graph_print(gidx, cidx):
 	print('{', end='')
 	vidbytes = vfd.read(8)
 	while vidbytes:
-		vid = int.from_bytes(vidbytes, byteorder=sys.byteorder)
+		vid = int.from_bytes(vidbytes, byteorder='little')
 		print(str(vid), end='')
 		vidbytes = vfd.read(8)
 		if not vidbytes:
@@ -50,8 +50,8 @@ def graph_print(gidx, cidx):
 	eid1bytes = efd.read(8)
 	eid2bytes = efd.read(8)
 	while eid1bytes and eid2bytes:
-		eid1 = int.from_bytes(eid1bytes, byteorder=sys.byteorder)
-		eid2 = int.from_bytes(eid2bytes, byteorder=sys.byteorder)
+		eid1 = int.from_bytes(eid1bytes, byteorder='little')
+		eid2 = int.from_bytes(eid2bytes, byteorder='little')
 		print('(' + str(eid1) + ',' + str(eid2) + ')', end='')
 		eid1bytes = efd.read(8)
 		eid2bytes = efd.read(8)
@@ -108,7 +108,7 @@ def graph_new():
 		print('Write to file', vfile, 'failed')
 		return (-1), (-1)
 
-	bytes = (1).to_bytes(8, byteorder=sys.byteorder, signed=False)
+	bytes = (1).to_bytes(8, byteorder='little', signed=False)
 	vfd.write(bytes)
 	vfd.close()
 
