@@ -14,3 +14,6 @@ def vertex_new(cdir):
 	vfd.close()
 
 	return True
+
+def vertex_exists(cdir, vid):
+	return False

@@ -3,6 +3,12 @@ import re
 from config import GRDB_DIR
 from vertex import *
 
+def component_get_dir(gno, cno):
+	rdir = os.path.expanduser(GRDB_DIR)
+	gdir = rdir + '/' + str(gno)
+	cdir = gdir + '/' + str(cno)
+	return cdir
+
 def components_get_list(gno):
 	clist = []
 	rdir = os.path.expanduser(GRDB_DIR)
@@ -26,8 +32,7 @@ def component_new(gno):
 	cno = max(cnolist or (-1)) + 1
 
 	# Create directory for new component
-	gdir = os.path.expanduser(GRDB_DIR) + '/' + str(gno)
-	cdir = gdir + '/' + str(cno)
+	cdir = component_get_dir(gno, cno)
 	os.mkdir(cdir)
 
 	# Create first vertex in the new component
