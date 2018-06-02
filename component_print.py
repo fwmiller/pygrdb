@@ -1,6 +1,6 @@
 from component import *
 
-def graph_print(gidx, cidx):
+def component_print(gidx, cidx):
 	cdir = component_get_dir(gidx, cidx)
 
 	# Print vertex set

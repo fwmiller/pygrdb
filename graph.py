@@ -1,8 +1,8 @@
 import os
 import sys
 from component import *
+from component_print import component_print
 from config import *
-from graph_print import graph_print
 from vertex import *
 
 def graphs_get_list():
@@ -32,7 +32,7 @@ def graphs_print():
 		print(c + ': ', end='')
 		print('(', end='')
 		gidx, cidx = c.split('.')
-		graph_print(gidx, cidx)
+		component_print(gidx, cidx)
 		print(')')
 
 
