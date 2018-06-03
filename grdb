@@ -1,10 +1,12 @@
 #!/usr/bin/python3 -B
 
 import component
+import components
 import component_command
 import config
 import edge_command
 import graph
+import graphs
 import graph_command
 import os
 import schema_command
@@ -24,13 +26,13 @@ except:
 # Determine initial current graph and component number
 gno = (-1)
 cno = (-1)
-glist = graph.graphs_get_list()
+glist = graphs.get_list()
 gnolist = list(map(int, glist))
 if gnolist:
 	gno = min(gnolist)
 
 if gno >= 0:
-	clist = component.components_get_list(gno)
+	clist = components.get_list(gno)
 	cnolist = list(map(int, clist))
 	if cnolist:
 		cno = min(cnolist or (-1))

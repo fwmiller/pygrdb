@@ -1,4 +1,5 @@
 import component
+import components
 import config
 import os
 import re
@@ -11,7 +12,7 @@ def component_command(argv, gno, cno):
 				print('Create a new graph first')
 				return gno, cno
 
-			component.component_new(gno)
+			component.new(gno)
 			return gno, cno
 
 		if re.match(r'\d+\.\d+', argv[1]):
@@ -31,5 +32,5 @@ def component_command(argv, gno, cno):
 		return gno, cno
 
 	# Dump all components if no arguments
-	component.components_print(gno)
+	components.dump(gno)
 	return gno, cno

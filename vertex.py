@@ -1,6 +1,6 @@
 import config
 
-def vertex_new(cdir):
+def new(cdir):
 	# Create first vertex in the new component
 	vfile = cdir + '/' + config.VERTEX_FILE
 	try:
@@ -15,5 +15,5 @@ def vertex_new(cdir):
 
 	return True
 
-def vertex_exists(cdir, vid):
+def exists(cdir, vid):
 	return False

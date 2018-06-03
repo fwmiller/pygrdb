@@ -1,39 +1,75 @@
+import components
 import config
 import os
-import re
 import vertex
 
-def component_get_dir(gno, cno):
+
+def get_dir(gno, cno):
 	rdir = os.path.expanduser(config.GRDB_DIR)
 	gdir = rdir + '/' + str(gno)
 	cdir = gdir + '/' + str(cno)
 	return cdir
 
-def components_get_list(gno):
-	clist = []
-	rdir = os.path.expanduser(config.GRDB_DIR)
-	cdirs = os.listdir(rdir + '/' + str(gno))
-	for cdir in cdirs:
-		clist.append(cdir)
-	return clist
 
-def components_print(gno):
-	if gno < 0:
+def dump(gidx, cidx):
+	cdir = get_dir(gidx, cidx)
+
+	# Print vertex set
+	vfile = cdir + '/' + config.VERTEX_FILE
+	try:
+		vfd = open(vfile, 'rb')
+	except:
+		print('Open', vfile, 'failed')
 		return
-	clist = components_get_list(gno)
-	for c in sorted(clist):
-		print(str(gno) + '.' + c)
 
-def component_new(gno):
+	# XXX Assume no tuples for the moment
+	print('{', end='')
+	vidbytes = vfd.read(8)
+	while vidbytes:
+		vid = int.from_bytes(vidbytes, byteorder='little')
+		print(str(vid), end='')
+		vidbytes = vfd.read(8)
+		if not vidbytes:
+			break;
+		print(',', end='')
+	print('}', end='')
+	vfd.close()
+
+	# Print edge set
+	efile = cdir + '/' + config.VERTEX_FILE
+	try:
+		efd = open(efile, 'rb')
+	except:
+		print('Open', efile, 'failed')
+		return
+
+	# XXX Assume no tuples for the moment
+	print(',{', end='')
+	eid1bytes = efd.read(8)
+	eid2bytes = efd.read(8)
+	while eid1bytes and eid2bytes:
+		eid1 = int.from_bytes(eid1bytes, byteorder='little')
+		eid2 = int.from_bytes(eid2bytes, byteorder='little')
+		print('(' + str(eid1) + ',' + str(eid2) + ')', end='')
+		eid1bytes = efd.read(8)
+		eid2bytes = efd.read(8)
+		if not eid1bytes or eid2bytes:
+			break;
+		print(',', end='')
+	print('}', end='')
+	efd.close()
+
+
+def new(gno):
 	# Find highest existing component number for specified graph and
 	# add one
-	clist = components_get_list(gno)
+	clist = components.get_list(gno)
 	cnolist = list(map(int, clist))
 	cno = max(cnolist or (-1)) + 1
 
 	# Create directory for new component
-	cdir = component_get_dir(gno, cno)
+	cdir = get_dir(gno, cno)
 	os.mkdir(cdir)
 
 	# Create first vertex in the new component
-	vertex.vertex_new(cdir)
+	vertex.new(cdir)

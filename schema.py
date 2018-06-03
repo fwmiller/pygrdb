@@ -3,7 +3,7 @@ import json
 import os
 
 
-def schema_filename(gno, cno, schema_type):
+def filename(gno, cno, schema_type):
 	fname = os.path.expanduser(config.GRDB_DIR)
 	fname += '/' + str(gno)
 	fname += '/' + str(cno)
@@ -16,8 +16,8 @@ def schema_filename(gno, cno, schema_type):
 	return fname
 
 
-def schema_read(gno, cno, schema_type):
-	schemafilename = schema_filename(gno, cno, schema_type)
+def read(gno, cno, schema_type):
+	schemafilename = filename(gno, cno, schema_type)
 	if not schemafilename:
 		return None
 	try:
@@ -29,8 +29,8 @@ def schema_read(gno, cno, schema_type):
 	return schema
 
 
-def schema_write(gno, cno, schema_type, schema):
-	schemafilename = schema_filename(gno, cno, schema_type)
+def write(gno, cno, schema_type, schema):
+	schemafilename = filename(gno, cno, schema_type)
 	if not schemafilename:
 		return
 	f = open(schemafilename, 'w+')
@@ -38,8 +38,8 @@ def schema_write(gno, cno, schema_type, schema):
 	f.close()
 
 
-def schema_print(gno, cno, schema_type):
-	schema = schema_read(gno, cno, schema_type)
+def dump(gno, cno, schema_type):
+	schema = read(gno, cno, schema_type)
 	if schema_type == 'vertex' or schema_type == 'v':
 		print('sv: ', end='')
 	elif schema_type == 'edge' or schema_type == 'e':
@@ -56,11 +56,11 @@ def schema_print(gno, cno, schema_type):
 		print('None')
 
 
-def schema_new():
+def new():
 	return []
 
 
-def schema_check_base_type(base_type):
+def check_base_type(base_type):
 	base_type_lower = base_type.lower()
 	if base_type_lower == 'int' or \
 	   base_type_lower == 'float' or \
@@ -73,8 +73,8 @@ def schema_check_base_type(base_type):
 	return False
 
 
-def schema_add(schema, base_type, name):
-	if not schema_check_base_type(base_type):
+def add(schema, base_type, name):
+	if not check_base_type(base_type):
 		print('Illegal base type')
 		return schema
 

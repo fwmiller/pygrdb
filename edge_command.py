@@ -16,8 +16,8 @@ def edge_command(argv, gno, cno):
 
 	# Check whether one of the vertices is already in current component
 	cdir = component.component_get_dir(gno, cno)
-	if not vertex.vertex_exists(cdir, vid1) and \
-	   not vertex.vertex_exists(cdir, vid2):
+	if not vertex.exists(cdir, vid1) and \
+	   not vertex.exists(cdir, vid2):
 		print('At least one vertex must exist in current component')
 		return
 
