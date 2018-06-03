@@ -12,12 +12,18 @@ from graph_command import graph_command
 from schema_command import schema_command
 
 print('grdb (C) Frank W. Miller')
-print('Database directory:', os.path.expanduser(GRDB_DIR))
 
-gno = (-1)
-cno = (-1)
+rdir = os.path.expanduser(GRDB_DIR)
+try:
+	stat(rdir)
+	print('Database directory:', rdir)
+except:
+	print('Create database directory:', rdir)
+	os.mkdir(rdir)
 
 # Determine initial current graph and component number
+gno = (-1)
+cno = (-1)
 glist = graphs_get_list()
 gnolist = list(map(int, glist))
 if gnolist:
