@@ -1,13 +1,12 @@
+import config
+import component
+import component_print
 import os
-import sys
-from component import *
-from component_print import component_print
-from config import *
-from vertex import *
+import vertex
 
 def graphs_get_list():
 	glist = []
-	rdir = os.path.expanduser(GRDB_DIR)
+	rdir = os.path.expanduser(config.GRDB_DIR)
 	dirs = os.listdir(rdir)
 	for dir in dirs:
 		glist.append(dir)
@@ -20,7 +19,7 @@ def graphs_print():
 	# in gno.cno format
 	#
 	clist = []
-	rdir = os.path.expanduser(GRDB_DIR)
+	rdir = os.path.expanduser(config.GRDB_DIR)
 	gdirs = os.listdir(rdir)
 	for gdir in gdirs:
 		cdirs = os.listdir(rdir + '/' + gdir)
@@ -32,7 +31,7 @@ def graphs_print():
 		print(c + ': ', end='')
 		print('(', end='')
 		gidx, cidx = c.split('.')
-		component_print(gidx, cidx)
+		component_print.component_print(gidx, cidx)
 		print(')')
 
 
@@ -45,7 +44,7 @@ def graph_new():
 		gidx = max(gidxlist) + 1
 
 	# Create directory for new graph
-	rdir = os.path.expanduser(GRDB_DIR)
+	rdir = os.path.expanduser(config.GRDB_DIR)
 	gdir = rdir + '/' + str(gidx)
 	os.mkdir(gdir)
 
@@ -54,7 +53,7 @@ def graph_new():
 	os.mkdir(cdir)
 
 	# Create first vertex in the new component
-	if not vertex_new(cdir):
+	if not vertex.vertex_new(cdir):
 		return (-1), (-1)
 
 	return gidx, 0

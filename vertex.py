@@ -1,8 +1,8 @@
-from config import *
+import config
 
 def vertex_new(cdir):
 	# Create first vertex in the new component
-	vfile = cdir + '/' + VERTEX_FILE
+	vfile = cdir + '/' + config.VERTEX_FILE
 	try:
 		vfd = open(vfile, 'wb+')
 	except:

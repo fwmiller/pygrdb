@@ -1,10 +1,11 @@
-from component import *
+import component
+import config
 
 def component_print(gidx, cidx):
-	cdir = component_get_dir(gidx, cidx)
+	cdir = component.component_get_dir(gidx, cidx)
 
 	# Print vertex set
-	vfile = cdir + '/' + VERTEX_FILE
+	vfile = cdir + '/' + config.VERTEX_FILE
 	try:
 		vfd = open(vfile, 'rb')
 	except:
@@ -25,7 +26,7 @@ def component_print(gidx, cidx):
 	vfd.close()
 
 	# Print edge set
-	efile = cdir + '/' + VERTEX_FILE
+	efile = cdir + '/' + config.VERTEX_FILE
 	try:
 		efd = open(efile, 'rb')
 	except:

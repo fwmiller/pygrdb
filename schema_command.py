@@ -1,4 +1,4 @@
-from schema import *
+import schema
 
 def schema_command_add(argv, gno, cno):
 	if len(argv) != 4:
@@ -6,14 +6,14 @@ def schema_command_add(argv, gno, cno):
 		return
 
 	if argv[1] == 'vertex' or argv[1] == 'v':
-		schema = schema_read(gno, cno, 'v')
-		schema = schema_add(schema, argv[2], argv[3])
-		schema_write(gno, cno, 'v', schema)
+		sv = schema.schema_read(gno, cno, 'v')
+		sv = schema.schema_add(sv, argv[2], argv[3])
+		schema.schema_write(gno, cno, 'v', sv)
 
 	elif argv[1] == 'edge' or argv[1] == 'e':
-		schema = schema_read(gno, cno, 'e')
-		schema = schema_add(schema, argv[2], argv[3])
-		schema_write(gno, cno, 'e', schema)
+		se = schema.schema_read(gno, cno, 'e')
+		se = schema.schema_add(se, argv[2], argv[3])
+		schema.schema_write(gno, cno, 'e', se)
 
 
 def schema_command(argv, gno, cno):
@@ -29,5 +29,5 @@ def schema_command(argv, gno, cno):
 
 	if gno >= 0 and cno >= 0:
 		# Print schemas for specified component
-		schema_print(gno, cno, 'v')
-		schema_print(gno, cno, 'e')
+		schema.schema_print(gno, cno, 'v')
+		schema.schema_print(gno, cno, 'e')

@@ -1,16 +1,16 @@
+import config
 import json
 import os
-from config import *
 
 
 def schema_filename(gno, cno, schema_type):
-	fname = os.path.expanduser(GRDB_DIR)
+	fname = os.path.expanduser(config.GRDB_DIR)
 	fname += '/' + str(gno)
 	fname += '/' + str(cno)
 	if schema_type == 'vertex' or schema_type == 'v':
-		fname += '/' + VERTEX_SCHEMA_FILE
+		fname += '/' + config.VERTEX_SCHEMA_FILE
 	elif schema_type == 'edge' or schema_type == 'e':
-		fname += '/' + EDGE_SCHEMA_FILE
+		fname += '/' + config.EDGE_SCHEMA_FILE
 	else:
 		return None
 	return fname

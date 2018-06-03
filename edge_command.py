@@ -1,6 +1,6 @@
+import component
 import os
-from component import *
-from vertex import *
+import vertex
 
 def edge_command(argv, gno, cno):
 	if len(argv) != 3:
@@ -15,9 +15,9 @@ def edge_command(argv, gno, cno):
 	vid2 = int(argv[2])
 
 	# Check whether one of the vertices is already in current component
-	cdir = component_get_dir(gno, cno)
-	if not vertex_exists(cdir, vid1) and \
-	   not vertex_exists(cdir, vid2):
+	cdir = component.component_get_dir(gno, cno)
+	if not vertex.vertex_exists(cdir, vid1) and \
+	   not vertex.vertex_exists(cdir, vid2):
 		print('At least one vertex must exist in current component')
 		return
 
