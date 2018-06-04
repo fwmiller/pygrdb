@@ -1,6 +1,7 @@
 import component
 import components
 import config
+import edge
 import graph
 import graphs
 import os
@@ -8,7 +9,7 @@ import re
 import schema
 import vertex
 
-def component(argv, gno, cno):
+def component_cmd(argv, gno, cno):
 	if len(argv) > 1:
 		if argv[1] == 'new' or argv[1] == 'n':
 			# Create a new component
@@ -40,7 +41,7 @@ def component(argv, gno, cno):
 	return gno, cno
 
 
-def edge(argv, gno, cno):
+def edge_cmd(argv, gno, cno):
 	if len(argv) != 3:
 		return
 
@@ -52,20 +53,21 @@ def edge(argv, gno, cno):
 	vid1 = int(argv[1])
 	vid2 = int(argv[2])
 
-	# Check whether one of the vertices is already in current component
-	cdir = component.component_get_dir(gno, cno)
-	if not vertex.exists(cdir, vid1) and \
-	   not vertex.exists(cdir, vid2):
-		print('At least one vertex must exist in current component')
-		return
+	# XXX Check whether one of the vertices is already in current component
+	cdir = component.get_dir(gno, cno)
+	#if not vertex.exists(cdir, vid1) and \
+	#   not vertex.exists(cdir, vid2):
+	#	print('At least one vertex must exist in current component')
+	#	return
 
-	# Check whether edge exists in current component
+	# XXX Check whether edge exists in current component
 
 	# Add edge to current component
+	edge.add(cdir, vid1, vid2)
 
 
 
-def graph(argv, gno, cno):
+def graph_cmd(argv, gno, cno):
 	if len(argv) > 1:
 		if argv[1] == 'new' or argv[1] == 'n':
 			gidx, cidx = graph.new()
@@ -95,7 +97,11 @@ def schema_add(argv, gno, cno):
 		schema.schema_write(gno, cno, 'e', se)
 
 
-def schema(argv, gno, cno):
+def schema_cmd(argv, gno, cno):
+	if gno < 0 or cno < 0:
+		print('Create a new graph first')
+		return
+
 	if len(argv) > 1:
 		if argv[1] == 'vertex' or argv[1] == 'v' or \
 		   argv[1] == 'edge' or argv[1] == 'e':
