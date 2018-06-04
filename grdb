@@ -1,15 +1,12 @@
 #!/usr/bin/python3 -B
 
+import commands
 import component
 import components
-import component_command
 import config
-import edge_command
 import graph
 import graphs
-import graph_command
 import os
-import schema_command
 import shutil
 import sys
 
@@ -62,17 +59,17 @@ while True:
 		continue;
 
 	if argv[0] == 'graph' or argv[0] == 'g':
-		gno, cno = graph_command.graph_command(argv, gno, cno)
+		gno, cno = commands.graph(argv, gno, cno)
 		continue
 
 	if argv[0] == 'component' or argv[0] == 'c':
-		gno, cno = component_command.component_command(argv, gno, cno)
+		gno, cno = commands.component(argv, gno, cno)
 		continue
 
 	if argv[0] == 'schema' or argv[0] == 's':
-		schema_command.schema_command(argv, gno, cno)
+		commands.schema(argv, gno, cno)
 		continue
 
 	if argv[0] == 'edge' or argv[0] == 'e':
-		edge_command.edge_command(argv, gno, cno)
+		commands.edge(argv, gno, cno)
 		continue
