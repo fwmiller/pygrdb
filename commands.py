@@ -53,14 +53,17 @@ def edge_cmd(argv, gno, cno):
 	vid1 = int(argv[1])
 	vid2 = int(argv[2])
 
-	# XXX Check whether one of the vertices is already in current component
+	# Check whether edge exists in current component
 	cdir = component.get_dir(gno, cno)
+	if edge.exists(cdir, vid1, vid2):
+		print('Edge (' + str(vid1) + ',' + str(vid2) + ') exists')
+		return
+
+	# XXX Check whether one of the vertices is already in current component
 	#if not vertex.exists(cdir, vid1) and \
 	#   not vertex.exists(cdir, vid2):
 	#	print('At least one vertex must exist in current component')
 	#	return
-
-	# XXX Check whether edge exists in current component
 
 	# Add edge to current component
 	edge.add(cdir, vid1, vid2)

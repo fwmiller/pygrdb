@@ -15,3 +15,6 @@ def add(cdir, vid1, vid2):
 	efd.write(bytes1)
 	efd.write(bytes2)
 	efd.close()
+
+def exists(cdir, vid1, vid2):
+	return True
