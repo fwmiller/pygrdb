@@ -49,7 +49,6 @@ def edge_cmd(argv, gno, cno):
 		print('Create a new graph first')
 		return
 
-	print('Add edge (' + argv[1] + ',' + argv[2] + ')')
 	vid1 = int(argv[1])
 	vid2 = int(argv[2])
 
@@ -59,11 +58,16 @@ def edge_cmd(argv, gno, cno):
 		print('Edge (' + str(vid1) + ',' + str(vid2) + ') exists')
 		return
 
-	# XXX Check whether one of the vertices is already in current component
-	#if not vertex.exists(cdir, vid1) and \
-	#   not vertex.exists(cdir, vid2):
-	#	print('At least one vertex must exist in current component')
-	#	return
+	# Check whether one of the vertices is already in current component
+	if not vertex.exists(cdir, vid1) and not vertex.exists(cdir, vid2):
+		print('At least one vertex must exist in current component')
+		return
+
+	# Add the new vertex to the current component
+	if not vertex.exists(cdir, vid1):
+		vertex.add(cdir, vid1)
+	elif not vertex.exists(cdir, vid2):
+		vertex.add(cdir, vid2)
 
 	# Add edge to current component
 	edge.add(cdir, vid1, vid2)

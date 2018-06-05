@@ -24,19 +24,23 @@ def dump(gidx, cidx):
 
 	# XXX Assume no tuples for the moment
 	print('{', end='')
-	vidbytes = vfd.read(8)
-	while vidbytes:
-		vid = int.from_bytes(vidbytes, byteorder='little')
+
+	vb = vfd.read(8)
+	while True:
+		vid = int.from_bytes(vb, byteorder='little')
 		print(str(vid), end='')
-		vidbytes = vfd.read(8)
-		if not vidbytes:
+
+		vb = vfd.read(8)
+		if not vb:
 			break;
+
 		print(',', end='')
+
 	print('}', end='')
 	vfd.close()
 
 	# Print edge set
-	efile = cdir + '/' + config.VERTEX_FILE
+	efile = cdir + '/' + config.EDGE_FILE
 	try:
 		efd = open(efile, 'rb')
 	except:
@@ -45,17 +49,32 @@ def dump(gidx, cidx):
 
 	# XXX Assume no tuples for the moment
 	print(',{', end='')
-	eid1bytes = efd.read(8)
-	eid2bytes = efd.read(8)
-	while eid1bytes and eid2bytes:
-		eid1 = int.from_bytes(eid1bytes, byteorder='little')
-		eid2 = int.from_bytes(eid2bytes, byteorder='little')
+
+	e1b = efd.read(8)
+	if not e1b:
+		efd.close()
+		return;
+
+	e2b = efd.read(8)
+	if not e2b:
+		efd.close()
+		return;
+
+	while True:
+		eid1 = int.from_bytes(e1b, byteorder='little', signed=False)
+		eid2 = int.from_bytes(e2b, byteorder='little', signed=False)
 		print('(' + str(eid1) + ',' + str(eid2) + ')', end='')
-		eid1bytes = efd.read(8)
-		eid2bytes = efd.read(8)
-		if not eid1bytes or eid2bytes:
+
+		e1b = efd.read(8)
+		if not e1b:
 			break;
+
+		e2b = efd.read(8)
+		if not e2b:
+			break;
+
 		print(',', end='')
+
 	print('}', end='')
 	efd.close()
 
