@@ -44,7 +44,7 @@ def dump(gidx, cidx):
 	try:
 		efd = open(efile, 'rb')
 	except:
-		print('Open', efile, 'failed')
+		print(',{}', end='')
 		return
 
 	# XXX Assume no tuples for the moment

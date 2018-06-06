@@ -15,9 +15,9 @@ print('grdb (C) Frank W. Miller')
 rdir = os.path.expanduser(config.GRDB_DIR)
 try:
 	os.stat(rdir)
-	print('Database directory:', rdir)
+#	print('Database directory:', rdir)
 except:
-	print('Create database directory:', rdir)
+#	print('Create database directory:', rdir)
 	os.mkdir(rdir)
 
 # Determine initial current graph and component number

@@ -21,7 +21,6 @@ def exists(cdir, vid1, vid2):
 	try:
 		efd = open(efile, 'rb')
 	except:
-		print('Open edge file', efile, 'failed')
 		return False
 
 	while True:
