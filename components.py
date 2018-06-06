@@ -9,11 +9,3 @@ def get_list(gno):
 	for cdir in cdirs:
 		clist.append(cdir)
 	return clist
-
-
-def dump(gno):
-	if gno < 0:
-		return
-	clist = get_list(gno)
-	for c in sorted(clist):
-		print(str(gno) + '.' + c)

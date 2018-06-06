@@ -36,8 +36,12 @@ def component_cmd(argv, gno, cno):
 
 		return gno, cno
 
-	# Dump all components if no arguments
-	components.dump(gno)
+	# Dump current component if no arguments
+	if gno > 0 and cno > 0:
+		print(str(gno) + '.' + str(cno) + ': ' + '(', end='')
+		component.dump(gno, gno)
+		print(')')
+
 	return gno, cno
 
 
