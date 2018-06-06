@@ -37,9 +37,9 @@ def component_cmd(argv, gno, cno):
 		return gno, cno
 
 	# Dump current component if no arguments
-	if gno > 0 and cno > 0:
+	if gno >= 0 and cno >= 0:
 		print(str(gno) + '.' + str(cno) + ': ' + '(', end='')
-		component.dump(gno, gno)
+		component.dump(gno, cno)
 		print(')')
 
 	return gno, cno
@@ -98,14 +98,14 @@ def schema_add(argv, gno, cno):
 		return
 
 	if argv[1] == 'vertex' or argv[1] == 'v':
-		sv = schema.schema_read(gno, cno, 'v')
-		sv = schema.schema_add(sv, argv[2], argv[3])
-		schema.schema_write(gno, cno, 'v', sv)
+		sv = schema.read(gno, cno, 'v')
+		sv = schema.add(sv, argv[2], argv[3])
+		schema.write(gno, cno, 'v', sv)
 
 	elif argv[1] == 'edge' or argv[1] == 'e':
-		se = schema.schema_read(gno, cno, 'e')
-		se = schema.schema_add(se, argv[2], argv[3])
-		schema.schema_write(gno, cno, 'e', se)
+		se = schema.read(gno, cno, 'e')
+		se = schema.add(se, argv[2], argv[3])
+		schema.write(gno, cno, 'e', se)
 
 
 def schema_cmd(argv, gno, cno):
@@ -125,5 +125,5 @@ def schema_cmd(argv, gno, cno):
 
 	if gno >= 0 and cno >= 0:
 		# Print schemas for specified component
-		schema.schema_print(gno, cno, 'v')
-		schema.schema_print(gno, cno, 'e')
+		schema.dump(gno, cno, 'v')
+		schema.dump(gno, cno, 'e')

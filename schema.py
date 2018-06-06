@@ -61,14 +61,14 @@ def new():
 
 
 def check_base_type(base_type):
-	base_type_lower = base_type.lower()
-	if base_type_lower == 'int' or \
-	   base_type_lower == 'float' or \
-	   base_type_lower == 'double' or \
-	   base_type_lower == 'char' or \
-	   base_type_lower == 'string' or \
-	   base_type_lower == 'date' or \
-	   base_type_lower == 'time':
+	base_type_upper = base_type.upper()
+	if base_type_upper == 'INT' or \
+	   base_type_upper == 'FLOAT' or \
+	   base_type_upper == 'DOUBLE' or \
+	   base_type_upper == 'CHAR' or \
+	   base_type_upper == 'STRING' or \
+	   base_type_upper == 'DATE' or \
+	   base_type_upper == 'TIME':
 		return True
 	return False
 
@@ -80,5 +80,5 @@ def add(schema, base_type, name):
 
 	if not schema:
 		schema = []
-	schema.append((base_type.lower(),name))
+	schema.append((base_type.upper(),name))
 	return schema
