@@ -74,7 +74,24 @@ def check_base_type(base_type):
 
 
 def size(schema):
-	return
+	size = 0
+	for attrtype, attrname in schema:
+		if attrtype == 'INT':
+			size += 8
+		elif attrtype == 'FLOAT':
+			size += 4
+		elif attrtype == 'DOUBLE':
+			size += 8
+		elif attrtype == 'CHAR':
+			size += 1
+		elif attrtype == 'STRING':
+			size += 256
+		elif attrtype == 'DATE':
+			size += 10
+		elif attrtype == 'TIME':
+			size += 8
+		
+	return size
 
 
 def add(schema, base_type, name):

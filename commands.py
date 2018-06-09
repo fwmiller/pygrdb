@@ -92,6 +92,22 @@ def graph_cmd(argv, gno, cno):
 	return gno, cno
 
 
+def schema_size(argv, gno, cno):
+	if len(argv) != 3:
+		print('Illegal number of arguments for schema size')
+		return
+
+	if argv[2] == 'vertex' or argv[2] == 'v':
+		sv = schema.read(gno, cno, 'v')
+		size = schema.size(sv)
+		print('sv size =', size, 'bytes')
+
+	elif argv[2] == 'edge' or argv[2] == 'e':
+		se = schema.read(gno, cno, 'e')
+		size = schema.size(se)
+		print('se size =', size, 'bytes')
+
+
 def schema_add(argv, gno, cno):
 	if len(argv) != 4:
 		print('Illegal number of arguments for schema add')
@@ -114,6 +130,10 @@ def schema_cmd(argv, gno, cno):
 		return
 
 	if len(argv) > 1:
+		if argv[1] == 'size' or argv[1] == 's':
+			schema_size(argv, gno, cno)
+			return
+
 		if argv[1] == 'vertex' or argv[1] == 'v' or \
 		   argv[1] == 'edge' or argv[1] == 'e':
 			if gno < 0 or cno < 0:
