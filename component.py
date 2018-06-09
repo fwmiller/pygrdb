@@ -11,9 +11,7 @@ def get_dir(gno, cno):
 	return cdir
 
 
-def dump(gidx, cidx):
-	cdir = get_dir(gidx, cidx)
-
+def dump_vertexes(cdir):
 	# Print vertex set
 	vfile = cdir + '/' + config.VERTEX_FILE
 	try:
@@ -39,7 +37,8 @@ def dump(gidx, cidx):
 	print('}', end='')
 	vfd.close()
 
-	# Print edge set
+
+def dump_edges(cdir):
 	efile = cdir + '/' + config.EDGE_FILE
 	try:
 		efd = open(efile, 'rb')
@@ -77,6 +76,12 @@ def dump(gidx, cidx):
 
 	print('}', end='')
 	efd.close()
+
+
+def dump(gidx, cidx):
+	cdir = get_dir(gidx, cidx)
+	dump_vertexes(cdir)
+	dump_edges(cdir)
 
 
 def new(gno):

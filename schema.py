@@ -73,6 +73,10 @@ def check_base_type(base_type):
 	return False
 
 
+def size(schema):
+	return
+
+
 def add(schema, base_type, name):
 	if not check_base_type(base_type):
 		print('Illegal base type')
