@@ -25,7 +25,7 @@ def dump_vertexes(cdir):
 
 	vb = vfd.read(8)
 	while True:
-		vid = int.from_bytes(vb, byteorder='little')
+		vid = int.from_bytes(vb, byteorder='little', signed=False)
 		print(str(vid), end='')
 
 		vb = vfd.read(8)

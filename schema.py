@@ -30,6 +30,8 @@ def read(gno, cno, schema_type):
 
 
 def write(gno, cno, schema_type, schema):
+	if not schema:
+		return
 	schemafilename = filename(gno, cno, schema_type)
 	if not schemafilename:
 		return
@@ -63,6 +65,7 @@ def new():
 def check_base_type(base_type):
 	base_type_upper = base_type.upper()
 	if base_type_upper == 'INT' or \
+	   base_type_upper == 'UINT' or \
 	   base_type_upper == 'FLOAT' or \
 	   base_type_upper == 'DOUBLE' or \
 	   base_type_upper == 'CHAR' or \
@@ -71,27 +74,6 @@ def check_base_type(base_type):
 	   base_type_upper == 'TIME':
 		return True
 	return False
-
-
-def size(schema):
-	size = 0
-	for attrtype, attrname in schema:
-		if attrtype == 'INT':
-			size += 8
-		elif attrtype == 'FLOAT':
-			size += 4
-		elif attrtype == 'DOUBLE':
-			size += 8
-		elif attrtype == 'CHAR':
-			size += 1
-		elif attrtype == 'STRING':
-			size += 256
-		elif attrtype == 'DATE':
-			size += 10
-		elif attrtype == 'TIME':
-			size += 8
-		
-	return size
 
 
 def add(schema, base_type, name):
