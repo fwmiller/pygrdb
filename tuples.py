@@ -4,7 +4,7 @@ import schema
 import struct
 
 
-def update_tuple(s, fd1, fd2):
+def update(s, fd1, fd2):
 	# Iterate through the attributes of the schema and copy the tuple
 	# data to the new file one by one
 	for attrtype, attrname in s:
@@ -63,7 +63,7 @@ def update_tuple(s, fd1, fd2):
 			fd2.write(b)
 
 
-def update_vertex_tuples(gno, cno):
+def update_vertexes(gno, cno):
 	sv = schema.read(gno, cno, 'v')
 	if not sv:
 		return
@@ -77,7 +77,7 @@ def update_vertex_tuples(gno, cno):
 		if not vb:
 			break
 		fd2.write(vb)
-		update_tuple(sv, fd1, fd2)
+		update(sv, fd1, fd2)
 
 	fd2.close()
 	fd1.close()
@@ -86,7 +86,7 @@ def update_vertex_tuples(gno, cno):
 	os.rename(vfile + '.tmp', vfile)
 
 
-def update_edge_tuples(gno, cno):
+def update_edges(gno, cno):
 	se = schema.read(gno, cno, 'e')
 	if not se:
 		return
@@ -104,7 +104,7 @@ def update_edge_tuples(gno, cno):
 			break
 		fd2.write(v1b)
 		fd2.write(v2b)
-		update_tuple(se, fd1, fd2)
+		update(se, fd1, fd2)
 
 	fd2.close()
 	fd1.close()
