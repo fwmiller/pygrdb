@@ -3,6 +3,95 @@ import os
 import schema
 import struct
 
+def dump(s, fd):
+	# Iterate through the attributes of the schema and print the values
+	# associated with the current tuple
+	first = True
+	print('[', end='')
+
+	for attrtype, attrname in s:
+		if attrtype == 'INT':
+			b = fd.read(8)
+			if not b:
+				break
+			if not first:
+				print(',', end='')
+			first = False
+			print(struct.unpack('<q', b)[0], end='')
+
+		elif attrtype == 'UINT':
+			b = fd.read(8)
+			if not b:
+				break
+			if not first:
+				print(',', end='')
+			first = False
+			print(struct.unpack('<Q', b)[0], end='')
+
+		elif attrtype == 'FLOAT':
+			b = fd.read(4)
+			if not b:
+				break
+			if not first:
+				print(',', end='')
+			first = False
+			f = struct.unpack('f', b)[0]
+			print(f, end='')
+
+		elif attrtype == 'DOUBLE':
+			b = fd.read(8)
+			if not b:
+				break
+			if not first:
+				print(',', end='')
+			first = False
+			d = struct.unpack('d', b)[0]
+			print(d, end='')
+
+		elif attrtype == 'CHAR':
+			b = fd.read(1)
+			if not b:
+				break
+			if not first:
+				print(',', end='')
+			first = False
+			s = str(b)
+			print(s, end='')
+
+		elif attrtype == 'STRING':
+			b = fd.read(2)
+			len = struct.unpack('<H', b)[0]
+			b = fd.read(len)
+			if not b:
+				break
+			if not first:
+				print(',', end='')
+			first = False
+			s = str(b)
+			print(s, end='')
+
+		elif attrtype == 'DATE':
+			b = fd.read(10)
+			if not b:
+				break
+			if not first:
+				print(',', end='')
+			first = False
+			s = str(b)
+			print(s, end='')
+
+		elif attrtype == 'TIME':
+			b = fd.read(8)
+			if not b:
+				break
+			if not first:
+				print(',', end='')
+			first = False
+			s = str(b)
+			print(s, end='')
+
+	print(']', end='')
+
 
 def update(s, fd1, fd2):
 	# Iterate through the attributes of the schema and copy the tuple

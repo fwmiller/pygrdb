@@ -1,6 +1,9 @@
 import components
 import config
 import os
+import schema
+import struct
+import tuples
 import vertex
 
 
@@ -11,7 +14,7 @@ def get_dir(gno, cno):
 	return cdir
 
 
-def dump_vertexes(cdir):
+def dump_vertexes(sv, cdir):
 	# Print vertex set
 	vfile = cdir + '/' + config.VERTEX_FILE
 	try:
@@ -25,8 +28,8 @@ def dump_vertexes(cdir):
 
 	vb = vfd.read(8)
 	while True:
-		vid = int.from_bytes(vb, byteorder='little', signed=False)
-		print(str(vid), end='')
+		print(struct.unpack('<q', vb)[0], end='')
+		tuples.dump(sv, vfd)
 
 		vb = vfd.read(8)
 		if not vb:
@@ -38,7 +41,7 @@ def dump_vertexes(cdir):
 	vfd.close()
 
 
-def dump_edges(cdir):
+def dump_edges(se, cdir):
 	efile = cdir + '/' + config.EDGE_FILE
 	try:
 		efd = open(efile, 'rb')
@@ -60,13 +63,15 @@ def dump_edges(cdir):
 		return;
 
 	while True:
-		eid1 = int.from_bytes(e1b, byteorder='little', signed=False)
-		eid2 = int.from_bytes(e2b, byteorder='little', signed=False)
-		print('(' + str(eid1) + ',' + str(eid2) + ')', end='')
+		eid1 = struct.unpack('<q', e1b)[0]
+		eid2 = struct.unpack('<q', e2b)[0]
+		print('(' + eid1 + ',' + eid2 + ')', end='')
 
 		e1b = efd.read(8)
 		if not e1b:
 			break;
+
+		tuples.dump(se, vfd)
 
 		e2b = efd.read(8)
 		if not e2b:
@@ -79,9 +84,11 @@ def dump_edges(cdir):
 
 
 def dump(gidx, cidx):
+	sv = schema.read(gidx, cidx, 'v')
+	se = schema.read(gidx, cidx, 'e')
 	cdir = get_dir(gidx, cidx)
-	dump_vertexes(cdir)
-	dump_edges(cdir)
+	dump_vertexes(sv, cdir)
+	dump_edges(se, cdir)
 
 
 def new(gno):
