@@ -65,13 +65,12 @@ def dump_edges(se, cdir):
 	while True:
 		eid1 = struct.unpack('<q', e1b)[0]
 		eid2 = struct.unpack('<q', e2b)[0]
-		print('(' + eid1 + ',' + eid2 + ')', end='')
+		print('(' + str(eid1) + ',' + str(eid2) + ')', end='')
+		tuples.dump(se, efd)
 
 		e1b = efd.read(8)
 		if not e1b:
 			break;
-
-		tuples.dump(se, vfd)
 
 		e2b = efd.read(8)
 		if not e2b:
