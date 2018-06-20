@@ -8,6 +8,7 @@ import os
 import re
 import schema
 import tuples
+import tuples_update
 import vertex
 
 def component_cmd(argv, gno, cno):
@@ -102,13 +103,13 @@ def schema_add(argv, gno, cno):
 		sv = schema.read(gno, cno, 'v')
 		sv = schema.add(sv, argv[2], argv[3])
 		schema.write(gno, cno, 'v', sv)
-		tuples.update_vertexes(gno, cno, sv)
+		tuples_update.update_vertexes(gno, cno, sv)
 
 	elif argv[1] == 'edge' or argv[1] == 'e':
 		se = schema.read(gno, cno, 'e')
 		se = schema.add(se, argv[2], argv[3])
 		schema.write(gno, cno, 'e', se)
-		tuples.update_edges(gno, cno, se)
+		tuples_update.update_edges(gno, cno, se)
 
 
 def schema_cmd(argv, gno, cno):
