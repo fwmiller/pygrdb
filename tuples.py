@@ -58,20 +58,23 @@ def dump(s, fd):
 			if not first:
 				print(',', end='')
 			first = False
-			s = str(b)
-			print(s, end='')
+			print(str(b), end='')
 
 		elif attrtype == 'STRING':
 			b = fd.read(2)
 			len = struct.unpack('<H', b)[0]
-			b = fd.read(len)
-			if not b:
-				break
+			if len > 0:
+				b = fd.read(len)
+				if not b:
+					break
 			if not first:
 				print(',', end='')
 			first = False
-			s = str(b)
-			print(s, end='')
+			if len == 0:
+				print('\'\'', end='')
+			else:
+				s = str(b)
+				print(s, end='')
 
 		elif attrtype == 'DATE':
 			b = fd.read(10)
@@ -115,6 +118,22 @@ def update_tuple(s, fd1, fd2):
 		elif attrtype == 'FLOAT':
 			fd2.write(fd1.read(4))
 
+		elif attrtype == 'CHAR':
+			fd2.write(fd1.read(1))
+
+		elif attrtype == 'STRING':
+			b = fd1.read(2)
+			fd2.write(b)
+			length = struct.unpack('<h', b)[0]
+			if length > 0:
+				fd2.write(fd1.read(length))
+
+		elif attrtype == 'DATE':
+			fd2.write(fd1.read(10))
+
+		elif attrtype == 'TIME':
+			fd2.write(fd1.read(8))
+
 		count += 1
 
 	# Add the new data for the last attribute of the schema to the
@@ -131,41 +150,17 @@ def update_tuple(s, fd1, fd2):
 	elif attrtype == 'DOUBLE':
 		b = bytearray(struct.pack('d', 0.0))
 		fd2.write(b)
+	elif attrtype == 'CHAR':
+		b = bytearray(struct.pack('c', b' '))
+		fd2.write(b)
+	elif attrtype == 'STRING':
+		b = bytearray(struct.pack('h', 0))
+		fd2.write(b)
+	elif attrtype == 'DATE':
+		fd2.write(bytes('01-01-0000', 'utf-8'))
+	elif attrtype == 'TIME':
+		fd2.write(bytes('00:00:00', 'utf-8'))
 
-'''
-		elif attrtype == 'CHAR':
-			if sprev:
-				b = fd1.read(1)
-				if not b:
-					b = (0).to_bytes(1, byteorder='little')
-			else:
-				b = (0).to_bytes(1, byteorder='little')
-			fd2.write(b)
-
-		elif attrtype == 'STRING':
-			b = fd1.read(2)
-			if not b:
-				b = (0).to_bytes(2, byteorder='little', signed=False)
-				fd2.write(b)
-			else:
-				fd2.write(b)
-				len = int.from_bytes(b, byteorder='little', signed=False)
-				b = fd1.read(len)
-				if b:
-					fd2.write(b)
-
-		elif attrtype == 'DATE':
-			b = fd1.read(10)
-			if not b:
-				b = (0).to_bytes(10, byteorder='little')
-			fd2.write(b)
-
-		elif attrtype == 'TIME':
-			b = fd1.read(8)
-			if not b:
-				b = (0).to_bytes(8, byteorder='little')
-			fd2.write(b)
-'''
 
 def update_vertexes(gno, cno, sv):
 	vfile = component.get_dir(gno, cno) + '/v'
