@@ -1,14 +1,13 @@
 pygrdb - grdb in Python 3
 =========================
 
-pygrdb is an open-source graph database being developed at the University of
+pygrdb is an open-source graph database started at the University of
 Colorado.  pygrdb is written in Python 3.
 
 Contact
 -------
 
-frank.miller@colorado.edu
-
+frank@frankwmiller.net
 
 Database File System Layout
 ---------------------------
