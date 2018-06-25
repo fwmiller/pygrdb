@@ -60,7 +60,7 @@ def update_tuple(s, fd1, fd2):
 		b = bytearray(struct.pack('H', 0))
 		fd2.write(b)
 	elif attrtype == 'DATE':
-		fd2.write(bytes('01-01-0000', 'utf-8'))
+		fd2.write(bytes('08-27-2016', 'utf-8'))
 	elif attrtype == 'TIME':
 		fd2.write(bytes('00:00:00', 'utf-8'))
 
@@ -87,7 +87,10 @@ def update_vertexes(gno, cno, sv):
 
 def update_edges(gno, cno, se):
 	efile = component.get_dir(gno, cno) + '/e'
-	fd1 = open(efile, 'rb')
+	try:
+		fd1 = open(efile, 'rb')
+	except:
+		return
 	fd2 = open(efile + '.tmp', 'wb+')
 
 	while True:
