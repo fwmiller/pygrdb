@@ -22,6 +22,7 @@ def exists(cdir, vid1, vid2):
 	except:
 		return False
 
+	se = schema.read(cdir, 'e')
 	while True:
 		b1 = efd.read(8)
 		if not b1:
@@ -35,6 +36,10 @@ def exists(cdir, vid1, vid2):
 		if i1 == vid1 and i2 == vid2:
 			efd.close()
 			return True
+
+		# Skip over the tuple data if there is any
+		if se:
+			tuples_read.read(se, vfd)
 
 	efd.close()
 	return False

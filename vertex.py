@@ -1,4 +1,6 @@
 import config
+import schema
+import tuples_read
 
 def new(cdir):
 	# Create first vertex in the new component
@@ -36,7 +38,9 @@ def exists(cdir, vid):
 	except:
 		return False
 
+	sv = schema.read(cdir, 'v')
 	while True:
+		# Read the vertex id
 		b = vfd.read(8)
 		if not b:
 			break
@@ -45,6 +49,10 @@ def exists(cdir, vid):
 		if i == vid:
 			vfd.close()
 			return True
+
+		# Skip over the tuple data if there is any
+		if sv:
+			tuples_read.read(sv, vfd)
 
 	vfd.close()
 	return False
