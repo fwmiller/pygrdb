@@ -6,7 +6,6 @@ def add(cdir, vid1, vid2):
 	try:
 		efd = open(efile, 'ab')
 	except:
-		print('Write to file', efile, 'failed')
 		return
 
 	# Add new edge to edge file

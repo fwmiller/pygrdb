@@ -100,15 +100,17 @@ def schema_add(argv, gno, cno):
 		return
 
 	if argv[1] == 'vertex' or argv[1] == 'v':
-		sv = schema.read(gno, cno, 'v')
+		cdir = component.get_dir(gno, cno)
+		sv = schema.read(cdir, 'v')
 		sv = schema.add(sv, argv[2], argv[3])
-		schema.write(gno, cno, 'v', sv)
+		schema.write(cdir, 'v', sv)
 		tuples_update.update_vertexes(gno, cno, sv)
 
 	elif argv[1] == 'edge' or argv[1] == 'e':
-		se = schema.read(gno, cno, 'e')
+		cdir = component.get_dir(gno, cno)
+		se = schema.read(cdir, 'e')
 		se = schema.add(se, argv[2], argv[3])
-		schema.write(gno, cno, 'e', se)
+		schema.write(cdir, 'e', se)
 		tuples_update.update_edges(gno, cno, se)
 
 
@@ -129,5 +131,6 @@ def schema_cmd(argv, gno, cno):
 
 	if gno >= 0 and cno >= 0:
 		# Print schemas for specified component
-		schema.dump(gno, cno, 'v')
-		schema.dump(gno, cno, 'e')
+		cdir = component.get_dir(gno, cno)
+		schema.dump(cdir, 'v')
+		schema.dump(cdir, 'e')

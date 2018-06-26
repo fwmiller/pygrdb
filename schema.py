@@ -3,21 +3,18 @@ import json
 import os
 
 
-def filename(gno, cno, schema_type):
-	fname = os.path.expanduser(config.GRDB_DIR)
-	fname += '/' + str(gno)
-	fname += '/' + str(cno)
+def filename(cdir, schema_type):
 	if schema_type == 'vertex' or schema_type == 'v':
-		fname += '/' + config.VERTEX_SCHEMA_FILE
+		cdir += '/' + config.VERTEX_SCHEMA_FILE
 	elif schema_type == 'edge' or schema_type == 'e':
-		fname += '/' + config.EDGE_SCHEMA_FILE
+		cdir += '/' + config.EDGE_SCHEMA_FILE
 	else:
 		return None
-	return fname
+	return cdir
 
 
-def read(gno, cno, schema_type):
-	schemafilename = filename(gno, cno, schema_type)
+def read(cdir, schema_type):
+	schemafilename = filename(cdir, schema_type)
 	if not schemafilename:
 		return None
 	try:
@@ -29,10 +26,10 @@ def read(gno, cno, schema_type):
 	return schema
 
 
-def write(gno, cno, schema_type, schema):
+def write(cdir, schema_type, schema):
 	if not schema:
 		return
-	schemafilename = filename(gno, cno, schema_type)
+	schemafilename = filename(cdir, schema_type)
 	if not schemafilename:
 		return
 	f = open(schemafilename, 'w+')
@@ -40,8 +37,8 @@ def write(gno, cno, schema_type, schema):
 	f.close()
 
 
-def dump(gno, cno, schema_type):
-	schema = read(gno, cno, schema_type)
+def dump(cdir, schema_type):
+	schema = read(cdir, schema_type)
 	if schema_type == 'vertex' or schema_type == 'v':
 		print('sv: ', end='')
 	elif schema_type == 'edge' or schema_type == 'e':

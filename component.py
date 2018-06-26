@@ -83,9 +83,9 @@ def dump_edges(se, cdir):
 
 
 def dump(gidx, cidx):
-	sv = schema.read(gidx, cidx, 'v')
-	se = schema.read(gidx, cidx, 'e')
 	cdir = get_dir(gidx, cidx)
+	sv = schema.read(cdir, 'v')
+	se = schema.read(cdir, 'e')
 	dump_vertexes(sv, cdir)
 	dump_edges(se, cdir)
 

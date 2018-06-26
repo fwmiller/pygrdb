@@ -6,7 +6,6 @@ def new(cdir):
 	try:
 		vfd = open(vfile, 'ab')
 	except:
-		print('Open vertex file', vfile, 'failed')
 		return False
 
 	b = (1).to_bytes(8, byteorder='little', signed=False)
@@ -22,7 +21,6 @@ def add(cdir, vid):
 	try:
 		vfd = open(vfile, 'ab')
 	except:
-		print('Write to file', vfile, 'failed')
 		return
 
 	# Add new vertex to vertex file
@@ -36,7 +34,6 @@ def exists(cdir, vid):
 	try:
 		vfd = open(vfile, 'rb')
 	except:
-		print('Open vertex file', vfile, 'failed')
 		return False
 
 	while True:
