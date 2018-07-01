@@ -70,13 +70,15 @@ def edge_cmd(argv, gno, cno):
 		return
 
 	# Add the new vertex to the current component
+	sv = schema.read(cdir, 'v')
 	if not vertex.exists(cdir, vid1):
-		vertex.add(cdir, vid1)
+		vertex.add(cdir, vid1, sv)
 	elif not vertex.exists(cdir, vid2):
-		vertex.add(cdir, vid2)
+		vertex.add(cdir, vid2, sv)
 
 	# Add edge to current component
-	edge.add(cdir, vid1, vid2)
+	se = schema.read(cdir, 'e')
+	edge.add(cdir, vid1, vid2, se)
 
 
 

@@ -1,6 +1,8 @@
 import component
 import os
 import struct
+import tuples_write
+
 
 def update_tuple(s, fd1, fd2):
 	if not s:
@@ -41,28 +43,7 @@ def update_tuple(s, fd1, fd2):
 
 	# Add the new data for the last attribute of the schema to the
 	# new file
-	if attrtype == 'INT':
-		b = bytearray(struct.pack('q', 0))
-		fd2.write(b)
-	elif attrtype == 'UINT':
-		b = bytearray(struct.pack('Q', 0))
-		fd2.write(b)
-	elif attrtype == 'FLOAT':
-		b = bytearray(struct.pack('f', 0.0))
-		fd2.write(b)
-	elif attrtype == 'DOUBLE':
-		b = bytearray(struct.pack('d', 0.0))
-		fd2.write(b)
-	elif attrtype == 'CHAR':
-		b = bytearray(struct.pack('c', b' '))
-		fd2.write(b)
-	elif attrtype == 'STRING':
-		b = bytearray(struct.pack('H', 0))
-		fd2.write(b)
-	elif attrtype == 'DATE':
-		fd2.write(bytes('08-27-2016', 'utf-8'))
-	elif attrtype == 'TIME':
-		fd2.write(bytes('00:00:00', 'utf-8'))
+	tuples_write.write_attribute(attrtype, fd2)
 
 
 def update_vertexes(gno, cno, sv):

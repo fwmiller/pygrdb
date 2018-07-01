@@ -1,6 +1,7 @@
 import config
 import schema
 import tuples_read
+import tuples_write
 
 def new(cdir):
 	# Create first vertex in the new component
@@ -17,7 +18,7 @@ def new(cdir):
 	return True
 
 
-def add(cdir, vid):
+def add(cdir, vid, sv):
 	# Create a new edge file if it does not exist
 	vfile = cdir + '/' + config.VERTEX_FILE
 	try:
@@ -28,6 +29,10 @@ def add(cdir, vid):
 	# Add new vertex to vertex file
 	b = (vid).to_bytes(8, byteorder='little', signed=False)
 	vfd.write(b)
+
+	# Add a tuple if there is a vertex schema
+	tuples_write.write(sv, vfd)
+
 	vfd.close()
 
 
