@@ -39,3 +39,30 @@ is these common schemas across the vertices and edges.
 ![alt text](https://github.com/fwmiller/pygrdb/blob/master/doc/images/decomposed_graph.png "Decomposed Graph")
 
 *A decomposition into a set of connected components with common schemas*
+
+grdb is persistent.  When you enter or manipulate data in the database,
+it is all stored on secondary (i.e. persistent) storage.  All the graphs
+managed for a given user are stored in a specific file structure.
+The user's database is kept in the user's home directory in a directory
+called ~/.grdb
+
+This directory contains one directory for each graph maintained in the
+database.  Each graph directory contains on directory for each component
+of that graph.
+
+Each component directory contains the following files:
+1. Vertex schema
+2. Edge schema
+3. Vertex file
+4. Edge list file
+
+The two schema files are maintained as JSON formatted text files.  The
+edge list file contains a flag in the JSON indicating whether the edges
+are directed or undirected.  The vertex file is maintained as a binary
+file containing a vertex id and associated tuple data for each vertex.
+The edge list file is maintained as a binary file containing the two vertex
+id's of the vertices the edge connects and associated tuple data for each
+edge.
+
+Interactive Use
+---------------
