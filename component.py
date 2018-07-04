@@ -23,7 +23,6 @@ def dump_vertexes(sv, cdir):
 		print('{}', end='')
 		return
 
-	# XXX Assume no tuples for the moment
 	print('{', end='')
 
 	vb = vfd.read(8)
@@ -49,7 +48,6 @@ def dump_edges(se, cdir):
 		print(',{}', end='')
 		return
 
-	# XXX Assume no tuples for the moment
 	print(',{', end='')
 
 	e1b = efd.read(8)
