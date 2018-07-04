@@ -19,4 +19,4 @@ model, consider a general graph can have arbitrary schemas for any vertex
 and any edge.  This model allows for any arbitrary data to be attached to
 any arbitrary graph structure.
 
-![alt text](https://github.com/fwmiller/pygrdb/doc/images/general_graph.png "General Graph")
+![alt text](https://github.com/fwmiller/pygrdb/blob/master/doc/images/general_graph.png "General Graph")
