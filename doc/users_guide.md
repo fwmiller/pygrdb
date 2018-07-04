@@ -1,4 +1,4 @@
-pygrdb User's Guide
+grdb User's Guide
 ===================
 
 (C) Frank W. Miller
@@ -20,6 +20,7 @@ and any edge.  This model allows for any arbitrary data to be attached to
 any arbitrary graph structure.
 
 ![alt text](https://github.com/fwmiller/pygrdb/blob/master/doc/images/general_graph.png "General Graph")
+
 *An arbitrary graph with arbitrary schemas*
 
 In this graph, each vertex has a vertex id that is unique across the graph.
@@ -36,4 +37,5 @@ The basis of decomposition of the general graph for storage into components
 is these common schemas across the vertices and edges.
 
 ![alt text](https://github.com/fwmiller/pygrdb/blob/master/doc/images/decomposed_graph.png "Decomposed Graph")
+
 *A decomposition into a set of connected components with common schemas*
