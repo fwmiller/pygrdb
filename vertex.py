@@ -61,3 +61,22 @@ def exists(cdir, vid):
 
 	vfd.close()
 	return False
+
+
+def find(cdir, vid, vfd):
+	sv = schema.read(cdir, 'v')
+	while True:
+		# Read the vertex id
+		b = vfd.read(8)
+		if not b:
+			break
+
+		i = int.from_bytes(b, byteorder='little', signed=False)
+		if i == vid:
+			return True
+
+		# Skip over the tuple data if there is any
+		if sv:
+			tuples_read.read(sv, vfd)
+
+	return False
