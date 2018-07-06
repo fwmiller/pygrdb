@@ -70,8 +70,8 @@ Interactive Use
 When the database starts up you get an interactive command prompt:
 
 ``
-$ ./grdb
-grdb (C) Frank W. Miller
+$ ./grdb  
+grdb (C) Frank W. Miller  
 grdb>
 ``
 
@@ -86,9 +86,9 @@ When you start the database for the first time (or after you issue the
 create a graph issue the following commands:
 
 ``
-grdb> g n
-0.0> g
-0.0: ({1},{})
+grdb> g n  
+0.0> g  
+0.0: ({1},{})  
 0.0>
 ``
 
