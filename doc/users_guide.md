@@ -69,11 +69,9 @@ Interactive Use
 
 When the database starts up you get an interactive command prompt:
 
-``
-$ ./grdb &nbsp;
-grdb (C) Frank W. Miller &nbsp;
-grdb>
-``
+``$ ./grdb`` \
+``grdb (C) Frank W. Miller`` \
+``grdb>``
 
 Most commands have two forms, a long form and an abbreviation.  For example,
 the graph command can be issued using either ``graph`` or ``g``.
@@ -85,12 +83,10 @@ When you start the database for the first time (or after you issue the
 ``clear`` command), the database is empty, i.e. it contains no graphs.  To
 create a graph issue the following commands:
 
-``
-grdb> g n &nbsp;
-0.0> g &nbsp;
-0.0: ({1},{}) &nbsp;
-0.0>
-``
+``grdb> g n`` \
+``0.0> g`` \
+``0.0: ({1},{})`` \
+``0.0> ``
 
 The first command creates a new graph.  ``g`` is the graph command and ``n``
 the create new graph operation.  The result is a new graph with a single
