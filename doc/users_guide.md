@@ -115,8 +115,8 @@ component 0.0:
 ``0.0>``
 
 The component 0.0 now contains an additional vertex, 2, and the edge, (1,2).
-The ``g e`` command requires two vertex ids as the endpoints for the edge, in
-this case, 1 and 2.  *There is an additional restriction that one of the
-vertex ids must already exist in the current component.*  If one of the
-vertex ids is not in the component, it will be created and added to the
-vertex set for the current component.  
+The edge command ``e`` requires two vertex ids as the endpoints for the
+edge, in this case, 1 and 2.  *There is an additional restriction that one
+of the vertex ids must already exist in the current component.*  If one
+of the vertex ids is not in the component, it will be created and added
+to the vertex set for the current component.  
