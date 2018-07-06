@@ -1,10 +1,9 @@
-grdb User's Guide
-===================
+# grdb User's Guide
 
 &#169; Frank W. Miller
 
-Introduction
-------------
+
+## Introduction
 
 grdb is a graph database engine.  It stores and processes large,
 heterogeneous datasets (i.e. datasets that are larger than main memory)
@@ -64,8 +63,8 @@ The edge list file is maintained as a binary file containing the two vertex
 id's of the vertices the edge connects and associated tuple data for each
 edge.
 
-Interactive Use
----------------
+
+## Interactive Use
 
 When the database starts up you get an interactive command prompt:
 
@@ -94,7 +93,24 @@ component that has a single vertex with the vertex id 1 in it.  If you
 just type ``g`` as shown in the second command, the list of all the graphs
 in the database is printed.
 
+Each component is listed in graph notation, i.e. (*V*,*E*), where V is the set
+of vertexes and E is the set of edges in the component.
+
 Notice that the command prompt has now changed from ``grdb`` to ``0.0:``
 The new graph was assigned the name ``0.0``.  The first digit indicates
 graph number 0 and the second digit indicates compnent number 0 associated
-with graph 0.
+with graph 0.  The prompt indicates that component 0.0 is now the *current
+component*.  Many of the grdb commands work against the current component.
+
+
+## Adding Edges
+
+To build the general graph up, you add edges to components.  For example,
+the following command adds the edge, (1,2), to our current graph and
+component 0.0:
+
+``0.0> e 1 2`` \
+``0.0> g`` \
+``0.0: ({1,2},{(1,2)})`` \
+``0.0>``
+
