@@ -103,7 +103,7 @@ with graph 0.  The prompt indicates that component 0.0 is now the *current
 component*.  Many of the grdb commands work against the current component.
 
 
-## Adding Edges
+### Adding Edges
 
 To build the general graph up, you add edges to components.  For example,
 the following command adds the edge, (1,2), to our current graph and
@@ -114,3 +114,9 @@ component 0.0:
 ``0.0: ({1,2},{(1,2)})`` \
 ``0.0>``
 
+The component 0.0 now contains an additional vertex, 2, and the edge, (1,2).
+The ``g e`` command requires two vertex ids as the endpoints for the edge, in
+this case, 1 and 2.  *There is an additional restriction that one of the
+vertex ids must already exist in the current component.*  If one of the
+vertex ids is not in the component, it will be created and added to the
+vertex set for the current component.  
