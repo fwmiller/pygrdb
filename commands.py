@@ -8,6 +8,7 @@ import os
 import re
 import schema
 import tuples
+import tuples_set
 import tuples_update
 import vertex
 
@@ -136,3 +137,32 @@ def schema_cmd(argv, gno, cno):
 		cdir = component.get_dir(gno, cno)
 		schema.dump(cdir, 'v')
 		schema.dump(cdir, 'e')
+
+
+def tuple_cmd(argv, gno, cno):
+	if len(argv) < 2:
+		print('Not enough arguments')
+		return
+
+	if argv[1] == 'vertex' or argv[1] == 'v':
+		if len(argv) != 5:
+			print('Illegal number of arguments for tuples set vertex')
+			return
+
+		cdir = component.get_dir(gno, cno)
+		sv = schema.read(cdir, 'v')
+		vid = int(argv[2])
+		tuples_set.set_vertex(cdir, vid, sv, argv[3], argv[4])
+		return
+
+	elif argv[1] == 'edge' or argv[1] == 'e':
+		if len(argv) != 6:
+			print('Illegal number of arguments for tuples set edge')
+			return
+
+		cdir = component.get_dir(gno, cno)
+		se = schema.read(cdir, 'e')
+		vid1 = int(argv[2])
+		vid2 = int(argv[3])
+		tuples_set.set_edge(cdir, vid1, vid2, se, argv[4], argv[5])
+		return

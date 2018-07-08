@@ -1,8 +1,10 @@
 import config
+import struct
+import tuples_read
 import vertex
 
 
-def set_vertex(cdir, vid, sv, name):
+def set_vertex(cdir, vid, sv, name, val):
 	vfile = cdir + '/' + config.VERTEX_FILE
 	try:
 		vfd = open(vfile, 'rb')
@@ -11,7 +13,7 @@ def set_vertex(cdir, vid, sv, name):
 
 	# Search for the specified vertex id.  If found, the file pointer
 	# is left at the beginning of the tuple data
-	if vertex.find(cdir, vid, vfd):
+	if not vertex.find(cdir, vid, vfd):
 		vfd.close()
 		return
 
@@ -19,33 +21,34 @@ def set_vertex(cdir, vid, sv, name):
 	for attrtype, attrname in sv:
 		if name == attrname:
 			# Replace the value of the attribute
+			if attrtype == 'INT':
+				b = bytearray(struct.pack('q', val))
+				fd.write(b)
+			elif attrtype == 'UINT':
+				b = bytearray(struct.pack('Q', val))
+				fd.write(b)
+			elif attrtype == 'FLOAT':
+				b = bytearray(struct.pack('f', val))
+				fd.write(b)
+			elif attrtype == 'DOUBLE':
+				b = bytearray(struct.pack('d', val))
+				fd.write(b)
+			elif attrtype == 'CHAR':
+				b = bytearray(struct.pack('c', val))
+				fd.write(b)
+			elif attrtype == 'STRING':
+				b = bytearray(struct.pack('H', val))
+				fd.write(b)
+			elif attrtype == 'DATE':
+				fd.write(bytes(val, 'utf-8'))
+			elif attrtype == 'TIME':
+				fd.write(bytes(val, 'utf-8'))
 
 		else:
-			if attrtype == 'INT' or \
-			   attrtype == 'UINT' or \
-			   attrtype == 'DOUBLE':
-				vfd.read(8)
-
-			elif attrtype == 'FLOAT':
-				vfd.read(4)
-
-			elif attrtype == 'CHAR':
-				vfd.read(1)
-
-			elif attrtype == 'STRING':
-				b = vfd.read(2)
-				length = struct.unpack('<h', b)[0]
-				if length > 0:
-					vfd.read(length)
-
-			elif attrtype == 'DATE':
-				vfd.read(10)
-
-			elif attrtype == 'TIME':
-				vfd.read(8)
+			tuples_read.read_attribute(attrtype, vfd)
 
 	vfd.close()
 
 
-def set_edge():
+def set_edge(cdir, vid1, vid2, se, name, val):
 	return

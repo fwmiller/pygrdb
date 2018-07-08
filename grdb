@@ -73,3 +73,7 @@ while True:
 	if argv[0] == 'edge' or argv[0] == 'e':
 		commands.edge_cmd(argv, gno, cno)
 		continue
+
+	if argv[0] == 'tuple' or argv[0] == 't':
+		commands.tuple_cmd(argv, gno, cno)
+		continue

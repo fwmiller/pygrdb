@@ -73,6 +73,7 @@ def find(cdir, vid, vfd):
 
 		i = int.from_bytes(b, byteorder='little', signed=False)
 		if i == vid:
+			print('vertex.find: Found vertex', vid)
 			return True
 
 		# Skip over the tuple data if there is any
