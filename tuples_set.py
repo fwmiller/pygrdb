@@ -7,7 +7,7 @@ import vertex
 def set_vertex(cdir, vid, sv, name, val):
 	vfile = cdir + '/' + config.VERTEX_FILE
 	try:
-		vfd = open(vfile, 'rb')
+		vfd = open(vfile, 'rb+')
 	except:
 		return
 
@@ -22,27 +22,28 @@ def set_vertex(cdir, vid, sv, name, val):
 		if name == attrname:
 			# Replace the value of the attribute
 			if attrtype == 'INT':
-				b = bytearray(struct.pack('q', val))
-				fd.write(b)
+				valint = int(val)
+				b = bytearray(struct.pack('q', valint))
+				vfd.write(b)
 			elif attrtype == 'UINT':
 				b = bytearray(struct.pack('Q', val))
-				fd.write(b)
+				vfd.write(b)
 			elif attrtype == 'FLOAT':
 				b = bytearray(struct.pack('f', val))
-				fd.write(b)
+				vfd.write(b)
 			elif attrtype == 'DOUBLE':
 				b = bytearray(struct.pack('d', val))
-				fd.write(b)
+				vfd.write(b)
 			elif attrtype == 'CHAR':
 				b = bytearray(struct.pack('c', val))
-				fd.write(b)
+				vfd.write(b)
 			elif attrtype == 'STRING':
 				b = bytearray(struct.pack('H', val))
-				fd.write(b)
+				vfd.write(b)
 			elif attrtype == 'DATE':
-				fd.write(bytes(val, 'utf-8'))
+				vfd.write(bytes(val, 'utf-8'))
 			elif attrtype == 'TIME':
-				fd.write(bytes(val, 'utf-8'))
+				vfd.write(bytes(val, 'utf-8'))
 
 		else:
 			tuples_read.read_attribute(attrtype, vfd)
