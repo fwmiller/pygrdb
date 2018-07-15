@@ -26,13 +26,17 @@ def set_vertex(cdir, vid, sv, name, val):
 				b = bytearray(struct.pack('q', valint))
 				vfd.write(b)
 			elif attrtype == 'UINT':
-				b = bytearray(struct.pack('Q', val))
+				valint = int(val)
+				valuint = valint % 2**64
+				b = bytearray(struct.pack('Q', valuint))
 				vfd.write(b)
 			elif attrtype == 'FLOAT':
-				b = bytearray(struct.pack('f', val))
+				valfloat = float(val)
+				b = bytearray(struct.pack('f', valfloat))
 				vfd.write(b)
 			elif attrtype == 'DOUBLE':
-				b = bytearray(struct.pack('d', val))
+				valdouble = float(val)
+				b = bytearray(struct.pack('d', valdouble))
 				vfd.write(b)
 			elif attrtype == 'CHAR':
 				b = bytearray(struct.pack('c', val))
