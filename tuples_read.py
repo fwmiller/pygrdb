@@ -6,7 +6,7 @@ def read_attribute(attrtype, fd):
 	elif attrtype == 'UINT':
 		b = fd.read(8)
 	elif attrtype == 'FLOAT':
-		b = fd.read(4)
+		b = fd.read(8)
 	elif attrtype == 'DOUBLE':
 		b = fd.read(8)
 	elif attrtype == 'CHAR':

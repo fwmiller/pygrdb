@@ -29,14 +29,14 @@ def dump(s, fd):
 			print(struct.unpack('<Q', b)[0], end='')
 
 		elif attrtype == 'FLOAT':
-			b = fd.read(4)
+			b = fd.read(8)
 			if not b:
 				break
 			if not first:
 				print(',', end='')
 			first = False
-			f = struct.unpack('f', b)[0]
-			print(f, end='')
+			d = struct.unpack('d', b)[0]
+			print(d, end='')
 
 		elif attrtype == 'DOUBLE':
 			b = fd.read(8)

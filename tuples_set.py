@@ -32,7 +32,7 @@ def set_vertex(cdir, vid, sv, name, val):
 				vfd.write(b)
 			elif attrtype == 'FLOAT':
 				valfloat = float(val)
-				b = bytearray(struct.pack('f', valfloat))
+				b = bytearray(struct.pack('d', valfloat))
 				vfd.write(b)
 			elif attrtype == 'DOUBLE':
 				valdouble = float(val)

@@ -17,11 +17,9 @@ def update_tuple(s, fd1, fd2):
 
 		if attrtype == 'INT' or \
 		   attrtype == 'UINT' or \
+		   attrtype == 'FLOAT' or \
 		   attrtype == 'DOUBLE':
 			fd2.write(fd1.read(8))
-
-		elif attrtype == 'FLOAT':
-			fd2.write(fd1.read(4))
 
 		elif attrtype == 'CHAR':
 			fd2.write(fd1.read(1))

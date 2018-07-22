@@ -9,7 +9,7 @@ def write_attribute(attrtype, fd):
 		b = bytearray(struct.pack('Q', 0))
 		fd.write(b)
 	elif attrtype == 'FLOAT':
-		b = bytearray(struct.pack('f', 0.0))
+		b = bytearray(struct.pack('d', 0.0))
 		fd.write(b)
 	elif attrtype == 'DOUBLE':
 		b = bytearray(struct.pack('d', 0.0))
