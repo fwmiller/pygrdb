@@ -39,7 +39,7 @@ def set_vertex(cdir, vid, sv, name, val):
 				b = bytearray(struct.pack('d', valdouble))
 				vfd.write(b)
 			elif attrtype == 'CHAR':
-				b = bytearray(struct.pack('c', val))
+				b = ord(val[0]).to_bytes(1, byteorder='little', signed=False)
 				vfd.write(b)
 			elif attrtype == 'STRING':
 				b = bytearray(struct.pack('H', val))
