@@ -7,6 +7,7 @@ import config
 import graph
 import graphs
 import os
+import shlex
 import shutil
 import sys
 
@@ -42,7 +43,7 @@ while True:
 	else:
 		line = input(str(gno) + '.' + str(cno) + '> ')
 
-	argv = line.split()
+	argv = shlex.split(line)
 
 	if len(argv) == 0:
 		continue
