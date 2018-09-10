@@ -42,9 +42,16 @@ def set_vertex(cdir, vid, sv, name, val):
 				b = ord(val[0]).to_bytes(1, byteorder='little', signed=False)
 				vfd.write(b)
 			elif attrtype == 'STRING':
-				print('string =', val)
-#				b = bytearray(struct.pack('H', val))
-#				vfd.write(b)
+				b = bytearray()
+				b.extend(map(ord, val))
+
+				# Write string length
+				blen = bytearray(struct.pack('H', len(b)))
+				vfd.write(blen)
+
+				# Write string padded out to max string length
+				vfd.write(b)
+
 			elif attrtype == 'DATE':
 				vfd.write(bytes(val, 'utf-8'))
 			elif attrtype == 'TIME':
