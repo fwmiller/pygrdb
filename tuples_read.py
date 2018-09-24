@@ -15,7 +15,7 @@ def read_attribute(attrtype, fd):
 		b = fd.read(2)
 		len = struct.unpack('<H', b)[0]
 		if len > 0:
-			b = fd.read(len)
+			b = fd.read(256)
 	elif attrtype == 'DATE':
 		b = fd.read(10)
 	elif attrtype == 'TIME':
