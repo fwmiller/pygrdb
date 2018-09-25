@@ -51,7 +51,7 @@ def set_vertex(cdir, vid, sv, name, val):
 
 				# Write string padded out to max string length
 				s = bytearray()
-				s.extend(map(ord, val.ljust(256)))
+				s.extend(map(ord, val.ljust(config.BASE_TYPE_SIZES['STRING'])))
 				vfd.write(s)
 
 			elif attrtype == 'DATE':

@@ -1,3 +1,4 @@
+import config
 import struct
 
 def dump(s, fd):
@@ -11,7 +12,7 @@ def dump(s, fd):
 
 	for attrtype, attrname in s:
 		if attrtype == 'INT':
-			b = fd.read(8)
+			b = fd.read(config.BASE_TYPE_SIZES['INT'])
 			if not b:
 				break
 			if not first:
@@ -20,7 +21,7 @@ def dump(s, fd):
 			print(struct.unpack('<q', b)[0], end='')
 
 		elif attrtype == 'UINT':
-			b = fd.read(8)
+			b = fd.read(config.BASE_TYPE_SIZES['UINT'])
 			if not b:
 				break
 			if not first:
@@ -29,7 +30,7 @@ def dump(s, fd):
 			print(struct.unpack('<Q', b)[0], end='')
 
 		elif attrtype == 'FLOAT':
-			b = fd.read(8)
+			b = fd.read(config.BASE_TYPE_SIZES['FLOAT'])
 			if not b:
 				break
 			if not first:
@@ -39,7 +40,7 @@ def dump(s, fd):
 			print(d, end='')
 
 		elif attrtype == 'DOUBLE':
-			b = fd.read(8)
+			b = fd.read(config.BASE_TYPE_SIZES['DOUBLE'])
 			if not b:
 				break
 			if not first:
@@ -49,7 +50,7 @@ def dump(s, fd):
 			print(d, end='')
 
 		elif attrtype == 'CHAR':
-			b = fd.read(1)
+			b = fd.read(config.BASE_TYPE_SIZES['CHAR'])
 			if not b:
 				break
 			if not first:
@@ -61,7 +62,7 @@ def dump(s, fd):
 			b = fd.read(2)
 			len = struct.unpack('<H', b)[0]
 			if len > 0:
-				b = fd.read(len)
+				b = fd.read(config.BASE_TYPE_SIZES['STRING'])
 				if not b:
 					break
 			if not first:
@@ -70,11 +71,10 @@ def dump(s, fd):
 			if len == 0:
 				print('\'\'', end='')
 			else:
-				s = str(b)
-				print(s, end='')
+				print('\'' + b[:len].decode('utf-8') + '\'', end='')
 
 		elif attrtype == 'DATE':
-			b = fd.read(10)
+			b = fd.read(config.BASE_TYPE_SIZES['DATE'])
 			if not b:
 				break
 			if not first:
@@ -84,7 +84,7 @@ def dump(s, fd):
 			print(s, end='')
 
 		elif attrtype == 'TIME':
-			b = fd.read(8)
+			b = fd.read(config.BASE_TYPE_SIZES['TIME'])
 			if not b:
 				break
 			if not first:

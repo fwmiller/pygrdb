@@ -1,4 +1,5 @@
 import component
+import config
 import os
 import struct
 import tuples_write
@@ -15,27 +16,33 @@ def update_tuple(s, fd1, fd2):
 		if count == len(s):
 			break
 
-		if attrtype == 'INT' or \
-		   attrtype == 'UINT' or \
-		   attrtype == 'FLOAT' or \
-		   attrtype == 'DOUBLE':
-			fd2.write(fd1.read(8))
+		if attrtype == 'INT':
+			fd2.write(fd1.read(config.BASE_TYPE_SIZES['INT']))
+
+		elif attrtype == 'UINT':
+			fd2.write(fd1.read(config.BASE_TYPE_SIZES['UINT']))
+
+		elif attrtype == 'FLOAT':
+			fd2.write(fd1.read(config.BASE_TYPE_SIZES['FLOAT']))
+
+		elif attrtype == 'DOUBLE':
+			fd2.write(fd1.read(config.BASE_TYPE_SIZES['DOUBLE']))
 
 		elif attrtype == 'CHAR':
-			fd2.write(fd1.read(1))
+			fd2.write(fd1.read(config.BASE_TYPE_SIZES['CHAR']))
 
 		elif attrtype == 'STRING':
 			b = fd1.read(2)
 			fd2.write(b)
-			length = struct.unpack('<h', b)[0]
-			if length > 0:
-				fd2.write(fd1.read(length))
+
+			if struct.unpack('<h', b)[0] > 0:
+				fd2.write(fd1.read(config.BASE_TYPE_SIZES['STRING']))
 
 		elif attrtype == 'DATE':
-			fd2.write(fd1.read(10))
+			fd2.write(fd1.read(config.BASE_TYPE_SIZES['DATE']))
 
 		elif attrtype == 'TIME':
-			fd2.write(fd1.read(8))
+			fd2.write(fd1.read(config.BASE_TYPE_SIZES['TIME']))
 
 		count += 1
 

@@ -1,25 +1,27 @@
+import config
 import struct
 
 def read_attribute(attrtype, fd):
 	if attrtype == 'INT':
-		b = fd.read(8)
+		b = fd.read(config.BASE_TYPE_SIZES['INT'])
 	elif attrtype == 'UINT':
-		b = fd.read(8)
+		b = fd.read(config.BASE_TYPE_SIZES['UINT'])
 	elif attrtype == 'FLOAT':
-		b = fd.read(8)
+		b = fd.read(config.BASE_TYPE_SIZES['FLOAT'])
 	elif attrtype == 'DOUBLE':
-		b = fd.read(8)
+		b = fd.read(config.BASE_TYPE_SIZES['DOUBLE'])
 	elif attrtype == 'CHAR':
-		b = fd.read(1)
+		b = fd.read(config.BASE_TYPE_SIZES['CHAR'])
 	elif attrtype == 'STRING':
 		b = fd.read(2)
 		len = struct.unpack('<H', b)[0]
 		if len > 0:
-			b = fd.read(256)
+			b = fd.read(config.BASE_TYPE_SIZES['STRING'])
+
 	elif attrtype == 'DATE':
-		b = fd.read(10)
+		b = fd.read(config.BASE_TYPE_SIZES['DATE'])
 	elif attrtype == 'TIME':
-		b = fd.read(8)
+		b = fd.read(config.BASE_TYPE_SIZES['TIME'])
 
 
 def read(s, fd):
