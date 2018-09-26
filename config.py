@@ -8,7 +8,7 @@ EDGE_FILE = 'e'
 BASE_TYPE_SIZES = {	\
 	'INT': 8,		\
 	'UINT': 8,		\
-	'FLOAT': 4,		\
+	'FLOAT': 8,		\
 	'DOUBLE': 8,	\
 	'CHAR': 1,		\
 	'STRING': 256,	\
